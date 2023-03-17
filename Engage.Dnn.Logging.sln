@@ -13,6 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		icon.png = icon.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{C707A770-1C97-4493-B282-863E4DF4F2CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5225CE19-861B-49CF-9C99-724C397BE181}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +30,9 @@ Global
 		{77BDE6C5-E9C7-4CE9-97C3-FD48BBEC1A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77BDE6C5-E9C7-4CE9-97C3-FD48BBEC1A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77BDE6C5-E9C7-4CE9-97C3-FD48BBEC1A29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C707A770-1C97-4493-B282-863E4DF4F2CF} = {7ED1AC3B-7D94-4DFC-9345-06A641EBCFC8}
+		{5225CE19-861B-49CF-9C99-724C397BE181} = {C707A770-1C97-4493-B282-863E4DF4F2CF}
 	EndGlobalSection
 EndGlobal
