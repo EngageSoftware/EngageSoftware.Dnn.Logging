@@ -1,49 +1,65 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <Company>Engage</Company>
-        <Authors>Brian Dukes</Authors>
-        <Description></Description>
-        <VersionPrefix>0.1.0</VersionPrefix>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <EnableNETAnalyzers>true</EnableNETAnalyzers>
-        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-        <AnalysisLevel>latest</AnalysisLevel>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <Company>Engage</Company>
+    <Authors>Brian Dukes</Authors>
+    <Description><![CDATA[
+          Reference this project in order to enable dependency injection support for
+          `ILogger<T>` in your DNN Platform site. This implementation wraps [DNN's
+          `LoggerSource`](https://docs.dnncommunity.org/api/DotNetNuke.Instrumentation.LoggerSource.html),
+          which ties into DNN's custom Log4Net implementation by default.
+        ]]></Description>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Using Include="System" />
-        <Using Include="System.Collections.Generic" />
-        <Using Include="System.Globalization" />
-        <Using Include="System.IO" />
-        <Using Include="System.Linq" />
-        <Using Include="System.Threading" />
-        <Using Include="System.Threading.Tasks" />
-        <Using Include="DotNetNuke.DependencyInjection" />
-        <Using Include="DotNetNuke.Instrumentation" />
-        <Using Include="JetBrains.Annotations" />
-        <Using Include="Microsoft.Extensions.DependencyInjection" />
-        <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
-        <Using Include="Microsoft.Extensions.Logging" />
-        <Using Remove="System.Net.Http" />
-    </ItemGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="DotNetNuke.DependencyInjection" Version="9.4.0" ExcludeAssets="runtime" />
-        <PackageReference Include="DotNetNuke.Instrumentation" Version="9.4.0" ExcludeAssets="runtime" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-        <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" PrivateAssets="all" ExcludeAssets="runtime" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
+  <ItemGroup>
+    <Using Include="System"/>
+    <Using Include="System.Collections.Generic"/>
+    <Using Include="System.Globalization"/>
+    <Using Include="System.IO"/>
+    <Using Include="System.Linq"/>
+    <Using Include="System.Threading"/>
+    <Using Include="System.Threading.Tasks"/>
+    <Using Include="DotNetNuke.DependencyInjection"/>
+    <Using Include="DotNetNuke.Instrumentation"/>
+    <Using Include="JetBrains.Annotations"/>
+    <Using Include="Microsoft.Extensions.DependencyInjection"/>
+    <Using Include="Microsoft.Extensions.DependencyInjection.Extensions"/>
+    <Using Include="Microsoft.Extensions.Logging"/>
+    <Using Remove="System.Net.Http"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetNuke.DependencyInjection" Version="9.4.0" ExcludeAssets="runtime"/>
+    <PackageReference Include="DotNetNuke.Instrumentation" Version="9.4.0" ExcludeAssets="runtime"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" PrivateAssets="all" ExcludeAssets="runtime"/>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
