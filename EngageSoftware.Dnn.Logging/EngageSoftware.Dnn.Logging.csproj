@@ -5,7 +5,7 @@
     <Company>Engage</Company>
     <Authors>Brian Dukes</Authors>
     <Copyright>Copyright (c) Engage Software (engagesoftware.com)</Copyright>
-    <PackageProjectUrl>https://github.com/EngageSoftware/Engage.Dnn.Logging</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/EngageSoftware/EngageSoftware.Dnn.Logging</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>dnn-platform logging</PackageTags>
