@@ -4,6 +4,12 @@
     <TargetFramework>net472</TargetFramework>
     <Company>Engage</Company>
     <Authors>Brian Dukes</Authors>
+    <Copyright>Copyright (c) Engage Software (engagesoftware.com)</Copyright>
+    <PackageProjectUrl>https://github.com/EngageSoftware/Engage.Dnn.Logging</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>dnn-platform logging</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description><![CDATA[
           Reference this project in order to enable dependency injection support for
           `ILogger<T>` in your DNN Platform site. This implementation wraps [DNN's
@@ -49,6 +55,8 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json"/>
+    <None Include="..\icon.png" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
