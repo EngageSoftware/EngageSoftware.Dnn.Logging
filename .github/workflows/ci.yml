@@ -68,7 +68,7 @@
                 },
                 {
                     "name": "Push packages to NuGet",
-                    "run": "dotnet nuget push 'dist/*.nupkg' --api-key ${{ secrets.NUGET_PUSH_KEY }}"
+                    "run": "dotnet nuget push dist/ --api-key ${{ secrets.NUGET_PUSH_KEY }}"
                 }
             ]
         }
