@@ -56,8 +56,12 @@
                     "run": "dotnet restore --locked-mode"
                 },
                 {
-                    "name": "Build and package",
-                    "run": "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
+                    "name": "Build",
+                    "run": "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }}"
+                },
+                {
+                    "name": "Package",
+                    "run": "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
                 },
                 {
                     "name": "Upload build artifacts",
@@ -68,7 +72,7 @@
                 },
                 {
                     "name": "Push packages to NuGet",
-                    "run": "dotnet nuget push dist/ --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUSH_KEY }}"
+                    "run": "dotnet nuget push dist/ --source https://api.nuget.org/v3/index.json --symbol-source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUSH_KEY }}"
                 }
             ]
         }
