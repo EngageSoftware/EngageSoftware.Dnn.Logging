@@ -57,7 +57,7 @@
                 },
                 {
                     "name": "Build and package",
-                    "run": "dotnet build Engage.Dnn.Logging.sln --no-restore --configuration $env:Configuration -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
+                    "run": "dotnet build Engage.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
                 },
                 {
                     "name": "Upload build artifacts",
