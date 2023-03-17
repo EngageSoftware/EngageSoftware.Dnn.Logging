@@ -1,8 +1,8 @@
 ﻿// <copyright file="DnnLogger.cs" company="Engage">
-// Engage.Dnn.Logging
+// EngageSoftware.Dnn.Logging
 // Copyright (c) 2023
 // </copyright>
-namespace Engage.Dnn.Logging;
+namespace EngageSoftware.Dnn.Logging;
 
 /// <summary>An <see cref="ILogger"/> implementation which wraps DNN's <see cref="ILog"/>.</summary>
 public sealed class DnnLogger : ILogger

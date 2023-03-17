@@ -3,7 +3,7 @@
 	"settings": {
 		"documentationRules": {
 			"companyName": "Engage",
-			"copyrightText": "Engage.Dnn.Logging\nCopyright (c) 2023"
+			"copyrightText": "EngageSoftware.Dnn.Logging\nCopyright (c) 2023"
 		}
 	}
 }
