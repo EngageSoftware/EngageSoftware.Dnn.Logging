@@ -17,9 +17,6 @@
             "shell": "pwsh"
         }
     },
-    "env": {
-        "VERSION_SUFFIX": "alpha-${{ github.run_number }}"
-    },
     "jobs": {
         "build": {
             "strategy": {
@@ -54,6 +51,11 @@
                 {
                     "name": "Restore NuGet packages",
                     "run": "dotnet restore --locked-mode"
+                },
+                {
+                    "name": "Set version suffix",
+                    "if": "github.event_name != 'release' || github.event.action != 'created'",
+                    "run": "'VERSION_SUFFIX=alpha-${{ github.run_number }} >> $env:GITHUB_ENV"
                 },
                 {
                     "name": "Build",
