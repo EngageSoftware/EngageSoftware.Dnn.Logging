@@ -34,6 +34,13 @@
                     "uses": "actions/checkout@v3.5.0"
                 },
                 {
+                    "name": "Setup NuGet",
+                    "uses": "actions/setup-nuget@v1.1.1",
+                    "with": {
+                        "nuget-version": "6.x"
+                    }
+                },
+                {
                     "name": "Setup .NET SDK",
                     "uses": "actions/setup-dotnet@v3.0.3",
                     "with": {
