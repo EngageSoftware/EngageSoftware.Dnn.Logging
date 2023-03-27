@@ -34,13 +34,6 @@
                     "uses": "actions/checkout@v3.5.0"
                 },
                 {
-                    "name": "Setup NuGet",
-                    "uses": "nuget/setup-nuget@v1.1.1",
-                    "with": {
-                        "nuget-version": "6.x"
-                    }
-                },
-                {
                     "name": "Setup .NET SDK",
                     "uses": "actions/setup-dotnet@v3.0.3",
                     "with": {
@@ -81,7 +74,7 @@
                 },
                 {
                     "name": "Push packages to NuGet",
-                    "run": "dotnet nuget push dist/ --source https://api.nuget.org/v3/index.json --symbol-source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUSH_KEY }}"
+                    "run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ secrets.NUGET_PUSH_KEY }}"
                 }
             ]
         }
