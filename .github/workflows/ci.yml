@@ -42,6 +42,7 @@
                 },
                 {
                     "uses": "actions/cache@v3",
+                    "id": "nuget-cache",
                     "with": {
                         "path": "${{ env.NUGET_PACKAGES }}",
                         "key": "${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}",
@@ -50,6 +51,7 @@
                 },
                 {
                     "name": "Restore NuGet packages",
+                    "if": "steps.nuget-cache.outputs.cache-hit != 'true'",
                     "run": "dotnet restore --locked-mode"
                 },
                 {
