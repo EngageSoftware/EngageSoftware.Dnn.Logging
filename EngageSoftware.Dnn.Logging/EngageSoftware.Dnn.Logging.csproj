@@ -16,7 +16,7 @@
           `LoggerSource`](https://docs.dnncommunity.org/api/DotNetNuke.Instrumentation.LoggerSource.html),
           which ties into DNN's custom Log4Net implementation by default.
         ]]></Description>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.1.2</VersionPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
