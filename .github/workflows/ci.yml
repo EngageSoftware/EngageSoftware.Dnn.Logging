@@ -75,7 +75,10 @@
 				{
 					"name": "Check for NuGet Push Key",
 					"id": "nuget-push-check",
-					"run": "Add-Content -Path $env:GITHUB_OUTPUT (if ('${{ secrets.NUGET_PUSH_KEY }}') { 'exists=true' } else { 'exists=false' } )"
+					"run": "Add-Content -Path $env:GITHUB_OUTPUT $(if ($env:NUGET_PUSH_KEY) { 'exists=true' } else { 'exists=false' })",
+					"env": {
+						"NUGET_PUSH_KEY": "${{ secrets.NUGET_PUSH_KEY }}"
+					}
 				},
 				{
 					"name": "Push packages to NuGet",
