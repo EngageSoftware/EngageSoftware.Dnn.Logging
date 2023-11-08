@@ -1,88 +1,88 @@
 {
-    "name": "CI (Build and Package)",
-    "on": {
-        "workflow_dispatch": null,
-        "push": {
-            "branches": ["main"]
-        },
-        "pull_request": {
-            "branches": ["main"]
-        },
-        "release": {
-            "types": ["created"]
-        }
-    },
-    "defaults": {
-        "run": {
-            "shell": "pwsh"
-        }
-    },
-    "jobs": {
-        "build": {
-            "strategy": {
-                "matrix": {
-                    "configuration": ["Release"]
-                }
-            },
-            "runs-on": "windows-latest",
-            "env": {
-                "NUGET_PACKAGES": "${{ github.workspace }}/.nuget/packages"
-            },
-            "steps": [
-                {
-                    "name": "Checkout",
-                    "uses": "actions/checkout@v4.1.1"
-                },
-                {
-                    "name": "Setup .NET SDK",
-                    "uses": "actions/setup-dotnet@v3.2.0",
-                    "with": {
-                        "dotnet-version": "7.0.x"
-                    }
-                },
-                {
-                    "uses": "actions/cache@v3",
-                    "with": {
-                        "path": "${{ env.NUGET_PACKAGES }}",
-                        "key": "${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}",
-                        "restore-keys": "${{ runner.os }}-nuget-"
-                    }
-                },
-                {
-                    "name": "Restore NuGet packages",
-                    "run": "dotnet restore --locked-mode"
-                },
-                {
-                    "name": "Set version suffix to alpha-${{ github.run_number }}",
-                    "if": "github.event_name != 'release' || github.event.action != 'created'",
-                    "run": "'VERSION_SUFFIX=alpha-${{ github.run_number }}' >> $env:GITHUB_ENV"
-                },
-                {
-                    "name": "Build",
-                    "run": "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }}"
-                },
-                {
-                    "name": "Package",
-                    "run": "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
-                },
-                {
-                    "name": "Upload build artifacts",
-                    "uses": "actions/upload-artifact@v3.1.3",
-                    "with": {
-                        "path": "dist/"
-                    }
-                },
-                {
-                    "name": "Check for NuGet Push Key",
-                    "id": "nuget-push-check",
-                    "run": "Add-Content -Path $env:GITHUB_OUTPUT (if ('${{ secrets.NUGET_PUSH_KEY }}') { 'exists=true' } else { 'exists=false' } )"
-                },
-                {
-                    "name": "Push packages to NuGet",
-                    "run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ secrets.NUGET_PUSH_KEY }}",
-                    "if": "${{ steps.nuget-push-check.outputs.exists == 'true' }}"
-                }
-            ]
-        }
-    }
+	"name": "CI (Build and Package)",
+	"on": {
+		"workflow_dispatch": null,
+		"push": {
+			"branches": ["main"]
+		},
+		"pull_request": {
+			"branches": ["main"]
+		},
+		"release": {
+			"types": ["created"]
+		}
+	},
+	"defaults": {
+		"run": {
+			"shell": "pwsh"
+		}
+	},
+	"jobs": {
+		"build": {
+			"strategy": {
+				"matrix": {
+					"configuration": ["Release"]
+				}
+			},
+			"runs-on": "windows-latest",
+			"env": {
+				"NUGET_PACKAGES": "${{ github.workspace }}/.nuget/packages"
+			},
+			"steps": [
+				{
+					"name": "Checkout",
+					"uses": "actions/checkout@v4.1.1"
+				},
+				{
+					"name": "Setup .NET SDK",
+					"uses": "actions/setup-dotnet@v3.2.0",
+					"with": {
+						"dotnet-version": "7.0.x"
+					}
+				},
+				{
+					"uses": "actions/cache@v3",
+					"with": {
+						"path": "${{ env.NUGET_PACKAGES }}",
+						"key": "${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}",
+						"restore-keys": "${{ runner.os }}-nuget-"
+					}
+				},
+				{
+					"name": "Restore NuGet packages",
+					"run": "dotnet restore --locked-mode"
+				},
+				{
+					"name": "Set version suffix to alpha-${{ github.run_number }}",
+					"if": "github.event_name != 'release' || github.event.action != 'created'",
+					"run": "'VERSION_SUFFIX=alpha-${{ github.run_number }}' >> $env:GITHUB_ENV"
+				},
+				{
+					"name": "Build",
+					"run": "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }}"
+				},
+				{
+					"name": "Package",
+					"run": "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
+				},
+				{
+					"name": "Upload build artifacts",
+					"uses": "actions/upload-artifact@v3.1.3",
+					"with": {
+						"path": "dist/"
+					}
+				},
+				{
+					"name": "Check for NuGet Push Key",
+					"id": "nuget-push-check",
+					"run": "Add-Content -Path $env:GITHUB_OUTPUT (if ('${{ secrets.NUGET_PUSH_KEY }}') { 'exists=true' } else { 'exists=false' } )"
+				},
+				{
+					"name": "Push packages to NuGet",
+					"run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ secrets.NUGET_PUSH_KEY }}",
+					"if": "${{ steps.nuget-push-check.outputs.exists == 'true' }}"
+				}
+			]
+		}
+	}
 }
