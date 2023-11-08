@@ -73,8 +73,14 @@
                     }
                 },
                 {
+                    "name": "Check for NuGet Push Key",
+                    "id": "nuget-push-check",
+                    "run": "Add-Content -Path $env:GITHUB_OUTPUT (if ('${{ secrets.NUGET_PUSH_KEY }}') { 'exists=true' } else { 'exists=false' } )"
+                },
+                {
                     "name": "Push packages to NuGet",
-                    "run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ secrets.NUGET_PUSH_KEY }}"
+                    "run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ secrets.NUGET_PUSH_KEY }}",
+                    "if": "${{ steps.nuget-push-check.outputs.exists == 'true' }}"
                 }
             ]
         }
