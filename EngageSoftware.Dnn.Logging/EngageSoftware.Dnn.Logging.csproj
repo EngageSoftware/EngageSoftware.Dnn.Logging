@@ -62,7 +62,7 @@
   <ItemGroup>
     <PackageReference Include="DotNetNuke.DependencyInjection" Version="9.4.0" PrivateAssets="All" ExcludeAssets="runtime" />
     <PackageReference Include="DotNetNuke.Instrumentation" Version="9.4.0" PrivateAssets="All" ExcludeAssets="runtime" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" PrivateAssets="all" ExcludeAssets="runtime" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all">
