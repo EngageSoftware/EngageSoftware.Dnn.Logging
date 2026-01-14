@@ -21,7 +21,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>
+      $(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -60,11 +61,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetNuke.DependencyInjection" Version="9.4.0" PrivateAssets="All" ExcludeAssets="runtime" />
-    <PackageReference Include="DotNetNuke.Instrumentation" Version="9.4.0" PrivateAssets="All" ExcludeAssets="runtime" />
+    <PackageReference Include="DotNetNuke.DependencyInjection" Version="9.4.0" PrivateAssets="All"
+      ExcludeAssets="runtime" />
+    <PackageReference Include="DotNetNuke.Instrumentation" Version="9.4.0" PrivateAssets="All"
+      ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.2" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" PrivateAssets="all" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" PrivateAssets="all"
+      ExcludeAssets="runtime" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
