@@ -19,6 +19,9 @@
 	},
 	"jobs": {
 		"build": {
+			"permissions": {
+				"id-token": "write"
+			},
 			"strategy": {
 				"matrix": {
 					"configuration": ["Release"]
@@ -73,17 +76,16 @@
 					}
 				},
 				{
-					"name": "Check for NuGet Push Key",
-					"id": "nuget-push-check",
-					"run": "Add-Content -Path $env:GITHUB_OUTPUT $(if ($env:NUGET_PUSH_KEY) { 'exists=true' } else { 'exists=false' })",
-					"env": {
-						"NUGET_PUSH_KEY": "${{ secrets.NUGET_PUSH_KEY }}"
+					"name": "NuGet login (OIDC → temp API key)",
+					"uses": "NuGet/login@v1",
+					"id": "nuget-login",
+					"with": {
+						"user": "${{ secrets.NUGET_USER }}"
 					}
 				},
 				{
 					"name": "Push packages to NuGet",
-					"run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ secrets.NUGET_PUSH_KEY }}",
-					"if": "${{ steps.nuget-push-check.outputs.exists == 'true' }}"
+					"run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
 				}
 			]
 		}
