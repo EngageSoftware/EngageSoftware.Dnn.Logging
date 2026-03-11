@@ -42,12 +42,13 @@
       },
       "Microsoft.SourceLink.GitHub": {
         "type": "Direct",
-        "requested": "[10.0.103, )",
-        "resolved": "10.0.103",
-        "contentHash": "qZk7r40ftpZY+/sO019sgWAWfNqC2CLSspDdAxNYCJU/bCi/8jVwvOMjzb/d5gjCRNzQ4OCYgBfhdpQyVwLTyw==",
+        "requested": "[10.0.200, )",
+        "resolved": "10.0.200",
+        "contentHash": "jZ34WRkUOZJX5V0FPhZJqtWSY+YB6/Vuuam1LGUwRzyYiRgs5qpAHHcrsckHCISjxXklGPwqh8j8t1g460PG1g==",
         "dependencies": {
-          "Microsoft.Build.Tasks.Git": "10.0.103",
-          "Microsoft.SourceLink.Common": "10.0.103"
+          "Microsoft.Build.Tasks.Git": "10.0.200",
+          "Microsoft.SourceLink.Common": "10.0.200",
+          "System.IO.Hashing": "10.0.4"
         }
       },
       "StyleCop.Analyzers": {
@@ -74,8 +75,11 @@
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
-        "resolved": "10.0.103",
-        "contentHash": "QoiCMcPuxC6eqRQmrmF9zBY96ejIznXtve/lJJbonGD9I5Aygf2AUCOWslGiCEtBbfWRSuUnepBjuuVOdAl5ag=="
+        "resolved": "10.0.200",
+        "contentHash": "UvGsrIcmqICxi0OiQ3ekgXVM9DJQQG0dkhxvp0RNkv4aH5zAbjX0/LWgz64SrkQS2mme+1dz2pMnM/R4vOI1AQ==",
+        "dependencies": {
+          "System.IO.Hashing": "10.0.4"
+        }
       },
       "Microsoft.Extensions.DependencyInjection": {
         "type": "Transitive",
@@ -128,8 +132,8 @@
       },
       "Microsoft.SourceLink.Common": {
         "type": "Transitive",
-        "resolved": "10.0.103",
-        "contentHash": "cMtGW5/r0ck72Jg2QwZcNTX59z+iB/B1kW84VMa/eX8L19DhHIuIcQjfK0pgLLBxd60Jl0Bj9GUolcM0MnJnZA=="
+        "resolved": "10.0.200",
+        "contentHash": "FxaSq+pMA7BS5dA5DXs0FscrvYzi6Rtm/zcU/ZMHV22lMIk07jz0WZdrWERQ9TJNARkne+z1Coow/a0w5Wl4yQ=="
       },
       "StyleCop.Analyzers.Unstable": {
         "type": "Transitive",
@@ -148,6 +152,15 @@
         "dependencies": {
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
+        }
+      },
+      "System.IO.Hashing": {
+        "type": "Transitive",
+        "resolved": "10.0.4",
+        "contentHash": "D5nHu/rBFu2mUyqyWWCTPxqvQisJKIqK/GU3X6BQbYIFYBDHTvUXToyv0oSszS26/6oTghWiA+oGqhgwGgTefw==",
+        "dependencies": {
+          "System.Buffers": "4.6.1",
+          "System.Memory": "4.6.3"
         }
       },
       "System.Memory": {
