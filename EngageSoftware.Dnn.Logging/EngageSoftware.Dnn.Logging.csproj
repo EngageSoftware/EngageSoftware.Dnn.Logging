@@ -65,7 +65,7 @@
       ExcludeAssets="runtime" />
     <PackageReference Include="DotNetNuke.Instrumentation" Version="9.4.0" PrivateAssets="All"
       ExcludeAssets="runtime" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.203" PrivateAssets="All" />
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" PrivateAssets="all"
       ExcludeAssets="runtime" />
