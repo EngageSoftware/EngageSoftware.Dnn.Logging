@@ -76,6 +76,7 @@
 					}
 				},
 				{
+					"if": "${{ github.event_name != 'pull_request' }}",
 					"name": "NuGet login (OIDC → temp API key)",
 					"uses": "NuGet/login@v1",
 					"id": "nuget-login",
@@ -84,6 +85,7 @@
 					}
 				},
 				{
+					"if": "${{ github.event_name != 'pull_request' }}",
 					"name": "Push packages to NuGet",
 					"run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
 				}
