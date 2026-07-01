@@ -37,29 +37,43 @@ jobs:
               uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
               with:
                   persist-credentials: false
+
             - name: "Setup .NET SDK"
               uses: "actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1" # v5.4.0
               with:
                   dotnet-version: "7.0.x"
+
             - name: "Restore NuGet packages"
               run: "dotnet restore --locked-mode"
+
             - name: "Set version suffix to alpha-${{ github.run_number }}"
               if: github.event_name != 'release' || github.event.action != 'created'
-              run: "'VERSION_SUFFIX=alpha-${{ github.run_number }}' >> $env:GITHUB_ENV"
+              run: 'VERSION_SUFFIX="alpha-$env:RUN_NUMBER" >> $env:GITHUB_ENV'
+              env:
+                  RUN_NUMBER: ${{ github.run_number }}
+
             - name: "Build"
-              run: "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=$env:VERSION_SUFFIX"
+              run: "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration $env:BUILD_CONFIGURATION -p:VersionSuffix=$env:VERSION_SUFFIX"
+              env:
+                  BUILD_CONFIGURATION: ${{ matrix.configuration }}
+
             - name: "Package"
-              run: "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=$env:VERSION_SUFFIX --output dist/"
+              run: "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration $env:BUILD_CONFIGURATION -p:VersionSuffix=$env:VERSION_SUFFIX --output dist/"
+              env:
+                  BUILD_CONFIGURATION: ${{ matrix.configuration }}
+
             - name: "Upload build artifacts"
               uses: "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a" # v7.0.1
               with:
                   path: "dist/"
+
             - if: "${{ github.event_name != 'pull_request' }}"
               name: "NuGet login (OIDC → temp API key)"
               uses: "NuGet/login@8d196754b4036150537f80ac539e15c2f1028841" # v1.2.0
               id: "nuget-login"
               with:
                   user: "${{ secrets.NUGET_USER }}"
+
             - if: "${{ github.event_name != 'pull_request' }}"
               name: "Push packages to NuGet"
               run: "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key $env:NUGET_API_KEY"
