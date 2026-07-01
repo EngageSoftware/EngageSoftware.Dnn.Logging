@@ -49,7 +49,7 @@ jobs:
 
             - name: "Set version suffix to alpha-${{ github.run_number }}"
               if: github.event_name != 'release' || github.event.action != 'created'
-              run: 'VERSION_SUFFIX="alpha-$env:RUN_NUMBER" >> $env:GITHUB_ENV'
+              run: '"VERSION_SUFFIX=alpha-$env:RUN_NUMBER" >> $env:GITHUB_ENV'
               env:
                   RUN_NUMBER: ${{ github.run_number }}
 
