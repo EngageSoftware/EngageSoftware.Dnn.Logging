@@ -23,6 +23,7 @@ defaults:
 jobs:
     build:
         name: "Build and Release"
+        environment: "nuget.org"
         permissions:
             id-token: "write" # NuGet
         strategy:
