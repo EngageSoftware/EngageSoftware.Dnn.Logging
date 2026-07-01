@@ -1,95 +1,60 @@
-{
-	"name": "CI (Build and Package)",
-	"on": {
-		"workflow_dispatch": null,
-		"push": {
-			"branches": ["main"]
-		},
-		"pull_request": {
-			"branches": ["main"]
-		},
-		"release": {
-			"types": ["created"]
-		}
-	},
-	"defaults": {
-		"run": {
-			"shell": "pwsh"
-		}
-	},
-	"jobs": {
-		"build": {
-			"permissions": {
-				"id-token": "write"
-			},
-			"strategy": {
-				"matrix": {
-					"configuration": ["Release"]
-				}
-			},
-			"runs-on": "windows-latest",
-			"env": {
-				"NUGET_PACKAGES": "${{ github.workspace }}/.nuget/packages"
-			},
-			"steps": [
-				{
-					"name": "Checkout",
-					"uses": "actions/checkout@v6.0.2"
-				},
-				{
-					"name": "Setup .NET SDK",
-					"uses": "actions/setup-dotnet@v3.2.0",
-					"with": {
-						"dotnet-version": "7.0.x"
-					}
-				},
-				{
-					"uses": "actions/cache@v3",
-					"with": {
-						"path": "${{ env.NUGET_PACKAGES }}",
-						"key": "${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}",
-						"restore-keys": "${{ runner.os }}-nuget-"
-					}
-				},
-				{
-					"name": "Restore NuGet packages",
-					"run": "dotnet restore --locked-mode"
-				},
-				{
-					"name": "Set version suffix to alpha-${{ github.run_number }}",
-					"if": "github.event_name != 'release' || github.event.action != 'created'",
-					"run": "'VERSION_SUFFIX=alpha-${{ github.run_number }}' >> $env:GITHUB_ENV"
-				},
-				{
-					"name": "Build",
-					"run": "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }}"
-				},
-				{
-					"name": "Package",
-					"run": "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
-				},
-				{
-					"name": "Upload build artifacts",
-					"uses": "actions/upload-artifact@v4.4.3",
-					"with": {
-						"path": "dist/"
-					}
-				},
-				{
-					"if": "${{ github.event_name != 'pull_request' }}",
-					"name": "NuGet login (OIDC → temp API key)",
-					"uses": "NuGet/login@v1",
-					"id": "nuget-login",
-					"with": {
-						"user": "${{ secrets.NUGET_USER }}"
-					}
-				},
-				{
-					"if": "${{ github.event_name != 'pull_request' }}",
-					"name": "Push packages to NuGet",
-					"run": "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
-				}
-			]
-		}
-	}
-}
+name: "CI (Build and Package)"
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - "main"
+    pull_request:
+        branches:
+            - "main"
+    release:
+        types:
+            - "created"
+defaults:
+    run:
+        shell: "pwsh"
+jobs:
+    build:
+        permissions:
+            id-token: "write" # NuGet
+        strategy:
+            matrix:
+                configuration:
+                    - "Release"
+        runs-on: "windows-latest"
+        env:
+            NUGET_PACKAGES: "${{ github.workspace }}/.nuget/packages"
+        steps:
+            - name: "Checkout"
+              uses: "actions/checkout@v6.0.2"
+            - name: "Setup .NET SDK"
+              uses: "actions/setup-dotnet@v3.2.0"
+              with:
+                  dotnet-version: "7.0.x"
+            - uses: "actions/cache@v3"
+              with:
+                  path: "${{ env.NUGET_PACKAGES }}"
+                  key: "${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}"
+                  restore-keys: "${{ runner.os }}-nuget-"
+            - name: "Restore NuGet packages"
+              run: "dotnet restore --locked-mode"
+            - name: "Set version suffix to alpha-${{ github.run_number }}"
+              if: github.event_name != 'release' || github.event.action != 'created'
+              run: "'VERSION_SUFFIX=alpha-${{ github.run_number }}' >> $env:GITHUB_ENV"
+            - name: "Build"
+              run: "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }}"
+            - name: "Package"
+              run: "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
+            - name: "Upload build artifacts"
+              uses: "actions/upload-artifact@v4.4.3"
+              with:
+                  path: "dist/"
+            - if: "${{ github.event_name != 'pull_request' }}"
+              name: "NuGet login (OIDC → temp API key)"
+              uses: "NuGet/login@v1"
+              id: "nuget-login"
+              with:
+                  user: "${{ secrets.NUGET_USER }}"
+            - if: "${{ github.event_name != 'pull_request' }}"
+              name: "Push packages to NuGet"
+              run: "dotnet nuget push (Get-Item dist/*.nupkg).FullName --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
