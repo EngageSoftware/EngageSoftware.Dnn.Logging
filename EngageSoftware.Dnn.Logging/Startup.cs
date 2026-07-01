@@ -11,6 +11,10 @@ public class Startup : IDnnStartup
     /// <inheritdoc />
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddLogging(builder => { builder.ClearProviders().AddProvider(new DnnLoggerProvider()); });
+        services.AddLogging(builder =>
+        {
+            builder.ClearProviders().AddProvider(new DnnLoggerProvider());
+            builder.SetMinimumLevel(LogLevel.Trace);
+        });
     }
 }
