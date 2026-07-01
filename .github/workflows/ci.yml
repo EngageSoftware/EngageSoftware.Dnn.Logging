@@ -22,6 +22,7 @@ defaults:
         shell: "pwsh"
 jobs:
     build:
+        name: "Build and Release"
         permissions:
             id-token: "write" # NuGet
         strategy:
