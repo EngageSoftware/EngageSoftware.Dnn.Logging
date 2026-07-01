@@ -10,6 +10,9 @@ on:
     release:
         types:
             - "created"
+
+permissions: {}
+
 defaults:
     run:
         shell: "pwsh"
