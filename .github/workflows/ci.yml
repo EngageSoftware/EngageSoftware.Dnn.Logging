@@ -42,9 +42,9 @@ jobs:
               if: github.event_name != 'release' || github.event.action != 'created'
               run: "'VERSION_SUFFIX=alpha-${{ github.run_number }}' >> $env:GITHUB_ENV"
             - name: "Build"
-              run: "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }}"
+              run: "dotnet build EngageSoftware.Dnn.Logging.sln --no-restore --configuration ${{ matrix.configuration }} -p:VersionSuffix=$env:VERSION_SUFFIX"
             - name: "Package"
-              run: "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=${{ env.VERSION_SUFFIX }} --output dist/"
+              run: "dotnet pack EngageSoftware.Dnn.Logging.sln --no-build --configuration ${{ matrix.configuration }} -p:VersionSuffix=$env:VERSION_SUFFIX --output dist/"
             - name: "Upload build artifacts"
               uses: "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a" # v7.0.1
               with:
