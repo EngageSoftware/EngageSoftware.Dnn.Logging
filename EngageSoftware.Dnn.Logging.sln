@@ -21,6 +21,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5225CE19-861B-49CF-9C99-724C397BE181}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\zizmor.yml = .github\workflows\zizmor.yml
 	EndProjectSection
 EndProject
 Global
