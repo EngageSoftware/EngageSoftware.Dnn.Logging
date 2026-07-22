@@ -12,7 +12,7 @@ on:
             - "main"
     release:
         types:
-            - "created"
+            - "published"
 
 permissions: {}
 
@@ -51,7 +51,7 @@ jobs:
               run: "dotnet restore --locked-mode"
 
             - name: "Set version suffix to alpha-${{ github.run_number }}"
-              if: github.event_name != 'release' || github.event.action != 'created'
+              if: github.event_name != 'release' || github.event.action != 'published'
               run: '"VERSION_SUFFIX=alpha-$env:RUN_NUMBER" >> $env:GITHUB_ENV'
               env:
                   RUN_NUMBER: ${{ github.run_number }}
